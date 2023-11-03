@@ -1,8 +1,5 @@
 from django.db import models
-import random 
-import string 
-def code_gen(size=6, chars=string.ascii_lowercase + string.digits):
-    return ''.join(random.choice(chars) for  _ in range(size))
+from .utils import create_shortcode
 # Create your models here.
 class ShortyUrl(models.Model):
     url = models.CharField( max_length=250)
@@ -14,7 +11,7 @@ class ShortyUrl(models.Model):
         return self.url
     
     def save(self, *args, **kwargs):
-        self.shotcode = code_gen()
-        print(self.shotcode)
+        if self.shotcode is None or self.shotcode == '':
+            self.shotcode = create_shortcode()
         super(ShortyUrl, self).save(*args, **kwargs)
 
