@@ -7,11 +7,15 @@ class shortyUrlManger(models.Manager):
         qs = super(shortyUrlManger, self).all(*args, **kwargs)
         qs = qs.filter(active=True)
         return qs
-    def refresh_shortcodes(self):
+    def refresh_shortcodes(self, items=None):
+        print(items)
         qs = ShortyUrl.objects.filter(id__gte=1)
         new_code = 0
+        if items is not None and isinstance(items, int):
+            qs = qs.order_by('-id')[:items]
         for q in qs:
             q.shotcode = create_shortcode(q)
+            print(q.id)
             q.save()
             new_code +=1 
         return "new code: " + str(new_code)

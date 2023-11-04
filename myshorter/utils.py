@@ -7,7 +7,7 @@ def code_gen(size=6, chars=string.ascii_lowercase + string.digits):
 def create_shortcode(instance, size=6):
     new_code = code_gen(size=size)
     shorty = instance.__class__
-    qs_exist = shorty.obejcts.filter(shotcode=new_code).exists()
+    qs_exist = shorty.objects.filter(shotcode=new_code).exists()
     if qs_exist: 
         return create_shortcode(instance, size)
     else:
