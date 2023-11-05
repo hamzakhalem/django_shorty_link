@@ -1,7 +1,9 @@
 from django.db import models
 from .utils import create_shortcode
+from django.conf import settings
 # Create your models here.
 
+SHORTCODE_MAX = getattr(settings, "SHORTCODE_MAX", 15)
 class shortyUrlManger(models.Manager):
     def all(self, *args, **kwargs):
         qs = super(shortyUrlManger, self).all(*args, **kwargs)
@@ -21,7 +23,7 @@ class shortyUrlManger(models.Manager):
         return "new code: " + str(new_code)
 class ShortyUrl(models.Model):
     url = models.CharField( max_length=250)
-    shotcode = models.CharField(unique=True, max_length=15)
+    shotcode = models.CharField(unique=True, max_length=SHORTCODE_MAX)
     updated_time = models.DateTimeField(auto_now=True, null= True)
     timstamp = models.DateTimeField(auto_now_add=True, null=True)
     acrive  = models.BooleanField(default=True)
