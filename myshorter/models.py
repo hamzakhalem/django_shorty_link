@@ -26,9 +26,11 @@ class ShortyUrl(models.Model):
     shotcode = models.CharField(unique=True, max_length=SHORTCODE_MAX)
     updated_time = models.DateTimeField(auto_now=True, null= True)
     timstamp = models.DateTimeField(auto_now_add=True, null=True)
-    acrive  = models.BooleanField(default=True)
+    active  = models.BooleanField(default=True)
     objects = shortyUrlManger()
     some_random = shortyUrlManger()
+    # slug = models.SlugField(default="", null=False)
+
     def __str__(self):
         return self.url
     
