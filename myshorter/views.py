@@ -21,6 +21,17 @@ class HomeView(View):
         return render(request, 'home.html', {'form':form})
     def post(self, request, *args, **kwargs):
         print(request.POST['url'])
-        form = shortenForm()
-        return render(request, 'home.html', {'form':form})
+        form = shortenForm(request.POST)
+        if(form.is_valid()):
+            new_url = form.cleaned_data.get('url')
+            obj, created = ShortyUrl.objects.get_or_create(url=new_url)
+            dec = {
+                    "object": obj,
+                    "created": created
+                }
+            if created:
+                return render(request, 'sucess.html', dec)
+            else:
+                return render(request, 'already_exist.html', dec)
+        
 

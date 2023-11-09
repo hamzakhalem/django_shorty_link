@@ -36,6 +36,6 @@ class ShortyUrl(models.Model):
     
     def save(self, *args, **kwargs):
         if self.shotcode is None or self.shotcode == '':
-            self.shotcode = create_shortcode()
+            self.shotcode = create_shortcode(self)
         super(ShortyUrl, self).save(*args, **kwargs)
 
