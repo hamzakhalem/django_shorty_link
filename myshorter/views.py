@@ -13,6 +13,7 @@ def shorty_redirect(request, slug):
 
 class ShortyCBView(View):
     def get(self, request, slug):
+        
         return HttpResponse("hello from view")
     
 class HomeView(View):
