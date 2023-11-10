@@ -1,6 +1,7 @@
 from django.db import models
 from .utils import create_shortcode
 from django.conf import settings
+from django.urls import reverse
 # Create your models here.
 
 SHORTCODE_MAX = getattr(settings, "SHORTCODE_MAX", 15)
@@ -38,4 +39,8 @@ class ShortyUrl(models.Model):
         if self.shotcode is None or self.shotcode == '':
             self.shotcode = create_shortcode(self)
         super(ShortyUrl, self).save(*args, **kwargs)
+    def get_url_short(self):
+        url_path = reverse('shorty', kwargs={'slug':self.shotcode})
+        return "https//:mylocal.local"+url_path
+    
 
