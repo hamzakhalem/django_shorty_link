@@ -39,6 +39,7 @@ class ShortyUrl(models.Model):
         if self.shotcode is None or self.shotcode == '':
             self.shotcode = create_shortcode(self)
         super(ShortyUrl, self).save(*args, **kwargs)
+        
     def get_url_short(self):
         url_path = reverse('shorty', kwargs={'slug':self.shotcode})
         return "https//:mylocal.local"+url_path
